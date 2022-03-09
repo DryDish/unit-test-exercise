@@ -77,6 +77,6 @@ fn convert_kelvin_to_fahrenheit(kelvin: &f64) -> f64 {
 
 impl std::fmt::Display for Temperature {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "system: {}, gradient: {}",self.system, self.gradient)
+        write!(f, "system: {}, gradient: {}", self.system, self.gradient)
     }
 }

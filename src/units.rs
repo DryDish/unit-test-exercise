@@ -1,25 +1,27 @@
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 /// Unit to define length unit.
 /// Only supports Metric and Imperial
 pub enum WeightType {
     Metric,
-    Imperial
+    Imperial,
 }
 
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum TemperatureType {
     Celsius,
     Fahrenheit,
-    Kelvin
+    Kelvin,
 }
 
 impl std::fmt::Display for WeightType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            WeightType::Metric => { write!(f, "Metric")},
-            WeightType::Imperial => { write!(f, "Imperial")}
+            WeightType::Metric => {
+                write!(f, "Metric")
+            }
+            WeightType::Imperial => {
+                write!(f, "Imperial")
+            }
         }
     }
 }
@@ -27,9 +29,15 @@ impl std::fmt::Display for WeightType {
 impl std::fmt::Display for TemperatureType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            TemperatureType::Celsius => { write!(f, "Celsius")},
-            TemperatureType::Fahrenheit => { write!(f, "Fahrenheit")},
-            TemperatureType::Kelvin => { write!(f, "Kelvin")}
+            TemperatureType::Celsius => {
+                write!(f, "Celsius")
+            }
+            TemperatureType::Fahrenheit => {
+                write!(f, "Fahrenheit")
+            }
+            TemperatureType::Kelvin => {
+                write!(f, "Kelvin")
+            }
         }
     }
 }
