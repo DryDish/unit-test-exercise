@@ -17,20 +17,7 @@ fn main() {
     weight_run();
 
     divider("Temperature");
-    let celsius_temp = Temperature::new(0.0, TemperatureType::Celsius);
-    let fahrenheit_temp = Temperature::new(0.0, TemperatureType::Fahrenheit);
-    let kelvin_temp = Temperature::new(0.0, TemperatureType::Kelvin);
-    println!("{}", celsius_temp);
-    println!(
-        "Converted to Fahrenheit: {}",
-        celsius_temp.convert(TemperatureType::Fahrenheit)
-    );
-    println!(
-        "Converted to Celsius: {}",
-        celsius_temp.convert(TemperatureType::Celsius)
-    );
-    println!("{}", fahrenheit_temp);
-    println!("{}", kelvin_temp);
+    temperature_run();
 }
 
 /// Runs length related functions
@@ -51,6 +38,42 @@ fn weight_run() {
     println!("Converted to Imperial: {}", metric_weight.convert());
     println!("{}", imperial_weight);
     println!("Converted to Metric: {}", imperial_weight.convert());
+}
+
+fn temperature_run() {
+    let celsius_temp = Temperature::new(0.0, TemperatureType::Celsius);
+    let fahrenheit_temp = Temperature::new(0.0, TemperatureType::Fahrenheit);
+    let kelvin_temp = Temperature::new(0.0, TemperatureType::Kelvin);
+
+    println!("{}", celsius_temp);
+    println!(
+        "Converted to Fahrenheit: {}",
+        celsius_temp.convert(TemperatureType::Fahrenheit)
+    );
+    println!(
+        "Converted to Kelvin: {}",
+        celsius_temp.convert(TemperatureType::Kelvin)
+    );
+
+    println!("{}", fahrenheit_temp);
+    println!(
+        "Converted to Celsius: {}",
+        fahrenheit_temp.convert(TemperatureType::Celsius)
+    );
+    println!(
+        "Converted to Kelvin: {}",
+        fahrenheit_temp.convert(TemperatureType::Kelvin)
+    );
+
+    println!("{}", kelvin_temp);
+    println!(
+        "Converted to Celsius: {}",
+        kelvin_temp.convert(TemperatureType::Celsius)
+    );
+    println!(
+        "Converted to Fahrenheit: {}",
+        kelvin_temp.convert(TemperatureType::Fahrenheit)
+    );
 }
 
 /// Prints text in the middle of evenly spaced dashes

@@ -80,3 +80,22 @@ impl std::fmt::Display for Temperature {
         write!(f, "system: {}, gradient: {}", self.system, self.gradient)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn convert_celsius_to_fahrenheit() {
+        // Arrange
+        let gradient = 25.0;
+        let expected = 77.0;
+
+        // Act
+        let temperature = Temperature::new(gradient, Celsius);
+        let result = temperature.convert(Fahrenheit);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+}
