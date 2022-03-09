@@ -33,6 +33,7 @@ impl Weight {
     }
 }
 
+#[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for Weight {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "system: {}, amount: {}", self.system, self.amount)

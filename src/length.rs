@@ -36,6 +36,7 @@ impl Length {
     }
 }
 
+#[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for Length {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "system: {}, size: {}", self.system, self.size)

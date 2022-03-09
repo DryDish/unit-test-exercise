@@ -13,6 +13,7 @@ pub enum TemperatureType {
     Kelvin,
 }
 
+#[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for WeightType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
@@ -26,6 +27,7 @@ impl std::fmt::Display for WeightType {
     }
 }
 
+#[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for TemperatureType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {

@@ -10,6 +10,7 @@ use crate::units::TemperatureType::{Celsius, Fahrenheit, Kelvin};
 use crate::units::WeightType::{Imperial, Metric};
 use crate::weight::Weight;
 
+#[cfg(not(tarpaulin_include))]
 fn main() {
     divider("Length");
     length_run();
@@ -21,6 +22,7 @@ fn main() {
     temperature_run();
 }
 
+#[cfg(not(tarpaulin_include))]
 /// Runs length related functions
 fn length_run() {
     let metric_length = Length::new(123.14, Metric);
@@ -31,6 +33,7 @@ fn length_run() {
     println!("Converted to Metric: {}", imperial_length.convert());
 }
 
+#[cfg(not(tarpaulin_include))]
 /// Runs weight related functions
 fn weight_run() {
     let metric_weight = Weight::new(25.0, Metric);
@@ -41,6 +44,8 @@ fn weight_run() {
     println!("Converted to Metric: {}", imperial_weight.convert());
 }
 
+#[cfg(not(tarpaulin_include))]
+/// Runs temperature related functions
 fn temperature_run() {
     let celsius_temp = Temperature::new(0.0, Celsius);
     let fahrenheit_temp = Temperature::new(0.0, Fahrenheit);
@@ -65,6 +70,7 @@ fn temperature_run() {
     );
 }
 
+#[cfg(not(tarpaulin_include))]
 /// Prints text in the middle of evenly spaced dashes
 fn divider(text: &str) {
     let txt_ln = text.len();
