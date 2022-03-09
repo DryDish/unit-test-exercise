@@ -1,4 +1,3 @@
-use std::fmt;
 use crate::units::Unit;
 
 /// Object to store lengths.
@@ -39,8 +38,8 @@ impl Length {
     }
 }
 
-impl fmt::Display for Length {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl std::fmt::Display for Length {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "size: {}, system: {}", self.size, self.system)
     }
 }
