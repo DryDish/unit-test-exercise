@@ -21,6 +21,14 @@ impl Length {
     /// Convert from the current unit to the other.
     /// 
     /// For example from Metric to Imperial
+    /// 
+    /// Usage:
+    /// ```
+    /// let metric_unit = Length::new(123.13, Unit::Metric);
+    /// let converted_unit = metric_unit.convert();
+    /// 
+    /// assert_eq!(converted_unit, 48.48);
+    /// ```
     pub fn convert(self) -> f64 {
         let ratio = 2.54;
         match self.system {
