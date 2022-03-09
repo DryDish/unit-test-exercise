@@ -1,15 +1,15 @@
-use crate::units::Unit;
+use crate::units::WeightType;
 
 pub struct Weight {
     amount: f64,
-    system: Unit
+    system: WeightType
 }
 
 impl Weight {
     /// Create a new object of type Weight.
     /// 
     /// Must provide the amount of weight and the unit.
-    pub fn new(amount: f64, system: Unit) -> Self {
+    pub fn new(amount: f64, system: WeightType) -> Self {
         Self { 
             amount,
             system
@@ -29,8 +29,8 @@ impl Weight {
     pub fn convert(self) -> f64 {
         let ratio = 2.20462262185;
         match self.system {
-            Unit::Metric => { return (self.amount * ratio * 100.0).round() / 100.0 },
-            Unit::Imperial => { return (self.amount / ratio * 100.0).round() / 100.0 },
+            WeightType::Metric => { return (self.amount * ratio * 100.0).round() / 100.0 },
+            WeightType::Imperial => { return (self.amount / ratio * 100.0).round() / 100.0 },
         }
     }
 }
@@ -49,7 +49,7 @@ mod tests {
     fn convert_kg_to_lb() {
         // Arrange 
         let size = 25.0;
-        let system = Unit::Metric;
+        let system = WeightType::Metric;
         let expected = 55.12;
 
         // Act
@@ -64,7 +64,7 @@ mod tests {
     fn convert_kg_to_lb_rounding_up() {
         // Arrange 
         let size = 21.1;
-        let system = Unit::Metric;
+        let system = WeightType::Metric;
         let expected = 46.52; // 46.51754
 
         // Act
@@ -79,7 +79,7 @@ mod tests {
     fn convert_kg_to_lb_rounding_down() {
         // Arrange 
         let size = 22.5;
-        let system = Unit::Metric;
+        let system = WeightType::Metric;
         let expected = 49.60; // 49.60401
 
         // Act
@@ -94,7 +94,7 @@ mod tests {
     fn convert_lb_to_kg() {
         // Arrange 
         let size = 25.0;
-        let system = Unit::Imperial;
+        let system = WeightType::Imperial;
         let expected = 11.34;
         
         // Act
@@ -109,7 +109,7 @@ mod tests {
     fn convert_lb_to_kg_rounding_up() {
         // Arrange 
         let size = 25.1;
-        let system = Unit::Imperial;
+        let system = WeightType::Imperial;
         let expected = 11.39; // 11.38517
         
         // Act
@@ -124,7 +124,7 @@ mod tests {
     fn convert_lb_to_kg_rounding_down() {
         // Arrange 
         let size = 26.2;
-        let system = Unit::Imperial;
+        let system = WeightType::Imperial;
         let expected = 11.88; // 11.88412
         
         // Act

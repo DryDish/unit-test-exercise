@@ -1,10 +1,13 @@
 mod length;
 mod units;
 mod weight;
+mod temperature;
 
-use crate::units::Unit;
+use crate::units::WeightType;
+use crate::units::TemperatureType;
 use crate::length::Length;
 use crate::weight::Weight;
+
 
 fn main() {
     divider("Length");
@@ -16,8 +19,8 @@ fn main() {
 
 /// Runs length related functions
 fn length_run() {
-    let metric_length = Length::new(123.14, Unit::Metric);
-    let imperial_length = Length::new(48.48, Unit::Imperial);
+    let metric_length = Length::new(123.14, WeightType::Metric);
+    let imperial_length = Length::new(48.48, WeightType::Imperial);
     println!("{}", metric_length);
     println!("Converted to Imperial: {}", metric_length.convert());
     println!("{}", imperial_length);
@@ -26,8 +29,8 @@ fn length_run() {
 
 /// Runs weight related functions
 fn weight_run() {
-    let metric_weight = Weight::new(25.0, Unit::Metric);
-    let imperial_weight = Weight::new(55.12, Unit::Imperial);
+    let metric_weight = Weight::new(25.0, WeightType::Metric);
+    let imperial_weight = Weight::new(2.0, WeightType::Imperial);
     println!("{}", metric_weight);
     println!("Converted to Imperial: {}", metric_weight.convert());
     println!("{}", imperial_weight);
