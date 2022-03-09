@@ -1,4 +1,5 @@
 use crate::units::WeightType;
+use crate::utils::round_to_two_decimals;
 
 /// Object to store lengths.
 /// Contains the size as well as the unit type.
@@ -29,8 +30,8 @@ impl Length {
     pub fn convert(self) -> f64 {
         let ratio = 2.54;
         match self.system {
-            WeightType::Metric => return (self.size / ratio * 100.0).round() / 100.0,
-            WeightType::Imperial => return (self.size * ratio * 100.0).round() / 100.0,
+            WeightType::Metric => return round_to_two_decimals(self.size / ratio),
+            WeightType::Imperial => return round_to_two_decimals(self.size * ratio),
         }
     }
 }

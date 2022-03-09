@@ -1,4 +1,5 @@
 use crate::units::WeightType;
+use crate::utils::round_to_two_decimals;
 
 pub struct Weight {
     amount: f64,
@@ -26,8 +27,8 @@ impl Weight {
     pub fn convert(self) -> f64 {
         let ratio = 2.20462262185;
         match self.system {
-            WeightType::Metric => return (self.amount * ratio * 100.0).round() / 100.0,
-            WeightType::Imperial => return (self.amount / ratio * 100.0).round() / 100.0,
+            WeightType::Metric => return round_to_two_decimals(self.amount * ratio),
+            WeightType::Imperial => return round_to_two_decimals(self.amount / ratio),
         }
     }
 }
