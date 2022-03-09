@@ -7,6 +7,14 @@ pub enum WeightType {
     Imperial
 }
 
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub enum TemperatureType {
+    Celsius,
+    Fahrenheit,
+    Kelvin
+}
+
 impl std::fmt::Display for WeightType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
@@ -14,14 +22,6 @@ impl std::fmt::Display for WeightType {
             WeightType::Imperial => { write!(f, "Imperial")}
         }
     }
-}
-
-#[derive(Debug)]
-#[derive(PartialEq)]
-pub enum TemperatureType {
-    Celsius,
-    Fahrenheit,
-    Kelvin
 }
 
 impl std::fmt::Display for TemperatureType {

@@ -40,7 +40,7 @@ impl Length {
 
 impl std::fmt::Display for Length {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "size: {}, system: {}", self.size, self.system)
+        write!(f, "system: {}, size: {}", self.system, self.size)
     }
 }
 

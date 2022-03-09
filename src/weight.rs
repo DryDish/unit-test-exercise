@@ -37,7 +37,7 @@ impl Weight {
 
 impl std::fmt::Display for Weight {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "amount: {}, system: {}", self.amount, self.system)
+        write!(f, "system: {}, amount: {}", self.system, self.amount)
     }
 }
 

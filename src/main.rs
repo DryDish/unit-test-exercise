@@ -7,6 +7,7 @@ use crate::units::WeightType;
 use crate::units::TemperatureType;
 use crate::length::Length;
 use crate::weight::Weight;
+use crate::temperature::Temperature;
 
 
 fn main() {
@@ -15,6 +16,18 @@ fn main() {
 
     divider("Weight");
     weight_run();
+
+    divider("Temperature");
+    let celsius_temp = Temperature::new(0.0, TemperatureType::Celsius);
+    let fahrenheit_temp = Temperature::new(0.0, TemperatureType::Fahrenheit);
+    let kelvin_temp = Temperature::new(0.0, TemperatureType::Kelvin);
+    println!("{}", celsius_temp);
+    println!("Converted to Fahrenheit: {}", celsius_temp.convert(TemperatureType::Fahrenheit));
+    println!("Converted to Celsius: {}", celsius_temp.convert(TemperatureType::Celsius));
+    println!("{}", fahrenheit_temp);
+    println!("{}", kelvin_temp);
+
+
 }
 
 /// Runs length related functions
