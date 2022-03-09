@@ -1,4 +1,5 @@
 use std::fmt;
+use crate::units::Unit;
 
 /// Object to store lengths.
 /// Contains the size as well as the unit type.
@@ -41,24 +42,6 @@ impl Length {
 impl fmt::Display for Length {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "size: {}, system: {}", self.size, self.system)
-    }
-}
-
-#[derive(Debug)]
-#[derive(PartialEq)]
-/// Unit to define length unit.
-/// Only supports Metric and Imperial
-pub enum Unit {
-    Metric,
-    Imperial
-}
-
-impl fmt::Display for Unit {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Unit::Metric => { write!(f, "Metric")},
-            Unit::Imperial => { write!(f, "Imperial")}
-        }
     }
 }
 
