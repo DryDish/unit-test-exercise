@@ -65,7 +65,7 @@ fn convert_fahrenheit_to_celsius(fahrenheit: &f64) -> f64 {
 
 /// This first converts to Celsius and then to Kelvin, lol
 fn convert_fahrenheit_to_kelvin(fahrenheit: &f64) -> f64 {
-    return round_to_two_decimals((fahrenheit - 32.) / 1.8 + 278.15);
+    return round_to_two_decimals((fahrenheit - 32.) / 1.8 + 273.15);
 }
 
 fn convert_kelvin_to_celsius(kelvin: &f64) -> f64 {
@@ -75,6 +75,7 @@ fn convert_kelvin_to_celsius(kelvin: &f64) -> f64 {
 fn convert_kelvin_to_fahrenheit(kelvin: &f64) -> f64 {
     return round_to_two_decimals(kelvin * 1.8 - 459.67);
 }
+
 
 #[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for Temperature {
@@ -102,13 +103,69 @@ mod tests {
     }
 
     #[test]
-    fn convert_celsius_to_fahrenheit_rounding_up() {
+    fn convert_celsius_to_kelvin() {
         // Arrange
-        let gradient = 25.12;
-        let expected = 77.22; // 77.216
+        let gradient = 25.0;
+        let expected = 298.15;
 
         // Act
         let temperature = Temperature::new(gradient, Celsius);
+        let result = temperature.convert(Kelvin);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn convert_fahrenheit_to_celsius() {
+        // Arrange
+        let gradient = 25.0;
+        let expected = -3.89; // -3.888889
+
+        // Act
+        let temperature = Temperature::new(gradient, Fahrenheit);
+        let result = temperature.convert(Celsius);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn convert_fahrenheit_to_kelvin() {
+        // Arrange
+        let gradient = 25.0;
+        let expected = 269.26; // 269.2611
+
+        // Act
+        let temperature = Temperature::new(gradient, Fahrenheit);
+        let result = temperature.convert(Kelvin);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn convert_kelvin_to_celsius() {
+        // Arrange
+        let gradient = 25.0;
+        let expected = -248.15; // -248.15
+
+        // Act
+        let temperature = Temperature::new(gradient, Kelvin);
+        let result = temperature.convert(Celsius);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn convert_kelvin_to_fahrenheit() {
+        // Arrange
+        let gradient = 25.0;
+        let expected = -414.67; // -414.67
+
+        // Act
+        let temperature = Temperature::new(gradient, Kelvin);
         let result = temperature.convert(Fahrenheit);
 
         // Assert
@@ -116,16 +173,45 @@ mod tests {
     }
 
     #[test]
-    fn convert_celsius_to_fahrenheit_rounding_down() {
+    fn convert_celsius_to_celsius() {
         // Arrange
-        let gradient = 25.13;
-        let expected = 77.23; // 77.234
+        let gradient = 25.0;
+        let expected = 25.0;
 
         // Act
         let temperature = Temperature::new(gradient, Celsius);
+        let result = temperature.convert(Celsius);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn convert_fahrenheit_to_fahrenheit() {
+        // Arrange
+        let gradient = 75.0;
+        let expected = 75.0;
+
+        // Act
+        let temperature = Temperature::new(gradient, Fahrenheit);
         let result = temperature.convert(Fahrenheit);
 
         // Assert
         assert_eq!(result, expected);
     }
+
+    #[test]
+    fn convert_kelvin_to_kelvin() {
+        // Arrange
+        let gradient = 100.0;
+        let expected = 100.0;
+
+        // Act
+        let temperature = Temperature::new(gradient, Kelvin);
+        let result = temperature.convert(Kelvin);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+    
 }
