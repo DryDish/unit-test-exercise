@@ -8,6 +8,28 @@ mod tests {
     use super::*;
 
     #[test]
+    fn rounding_zero() {
+        // Arrange
+        let number = 0.0;
+        let expected = 0.00;
+        // Act
+        let result = round_to_two_decimals(number);
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn rounding_long_number() {
+        // Arrange
+        let number = 0.0199999999999999999999999999999999999999999999999999999999999;
+        let expected = 0.02;
+        // Act
+        let result = round_to_two_decimals(number);
+        // Assert
+        assert_eq!(result, expected);
+    }
+
+    #[test]
     fn rounding_up_positive() {
         // Arrange
         let number = 123.4598;
