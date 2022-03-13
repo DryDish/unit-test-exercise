@@ -76,7 +76,6 @@ fn convert_kelvin_to_fahrenheit(kelvin: &f64) -> f64 {
     return round_to_two_decimals(kelvin * 1.8 - 459.67);
 }
 
-
 #[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for Temperature {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
@@ -213,5 +212,4 @@ mod tests {
         // Assert
         assert_eq!(result, expected);
     }
-    
 }
