@@ -1,14 +1,10 @@
-mod length;
-mod temperature;
-mod units;
 mod utils;
-mod weight;
 
-use crate::length::Length;
-use crate::temperature::Temperature;
-use crate::units::TemperatureType::{Celsius, Fahrenheit, Kelvin};
-use crate::units::WeightType::{Imperial, Metric};
-use crate::weight::Weight;
+use crate::utils::length::Length;
+use crate::utils::temperature::Temperature;
+use crate::utils::units::TemperatureType::{Celsius, Fahrenheit, Kelvin};
+use crate::utils::units::WeightType::{Imperial, Metric};
+use crate::utils::weight::Weight;
 
 #[cfg(not(tarpaulin_include))]
 fn main() {

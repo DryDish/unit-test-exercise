@@ -1,5 +1,5 @@
-use crate::units::TemperatureType::{self, Celsius, Fahrenheit, Kelvin};
-use crate::utils::round_to_two_decimals;
+use crate::utils::units::TemperatureType::{self, Celsius, Fahrenheit, Kelvin};
+use crate::utils::functions::round_to_two_decimals;
 
 pub struct Temperature {
     gradient: f64,

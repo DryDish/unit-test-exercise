@@ -1,5 +1,5 @@
-use crate::units::WeightType;
-use crate::utils::round_to_two_decimals;
+use crate::utils::units::WeightType;
+use crate::utils::functions::round_to_two_decimals;
 
 pub struct Weight {
     amount: f64,
