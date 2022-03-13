@@ -22,7 +22,7 @@ impl Currency {
 #[cfg(not(tarpaulin_include))]
 impl std::fmt::Display for Currency {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "kind: {}, amount: {}", self.kind, self.amount)
+        write!(f, "kind: {:?}, amount: {}", self.kind, self.amount)
     }
 }
 

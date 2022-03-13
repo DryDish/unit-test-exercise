@@ -13,6 +13,7 @@ pub enum TemperatureType {
     Kelvin,
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum CurrencyTypes {
     AED,
@@ -202,13 +203,3 @@ impl std::fmt::Display for TemperatureType {
     }
 }
 
-#[cfg(not(tarpaulin_include))]
-impl std::fmt::Display for CurrencyTypes {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        match self {
-            _ => {
-                write!(f, "{:?}", self)
-            }
-        }
-    }
-}
