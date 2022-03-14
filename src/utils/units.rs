@@ -14,7 +14,7 @@ pub enum TemperatureType {
 }
 
 #[allow(dead_code)]
-#[derive(Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub enum CurrencyTypes {
     AED,
     AFN,
@@ -203,3 +203,14 @@ impl std::fmt::Display for TemperatureType {
     }
 }
 
+/// small cheat to make to_string work
+#[cfg(not(tarpaulin_include))]
+impl std::fmt::Display for CurrencyTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            _ => {
+                write!(f, "{:?}", self)
+            }
+        }
+    }
+}

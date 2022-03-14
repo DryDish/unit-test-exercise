@@ -1,13 +1,18 @@
 mod utils;
 
+use crate::utils::currency::Currency;
 use crate::utils::length::Length;
 use crate::utils::temperature::Temperature;
+use crate::utils::units::CurrencyTypes;
 use crate::utils::units::TemperatureType::{Celsius, Fahrenheit, Kelvin};
 use crate::utils::units::WeightType::{Imperial, Metric};
 use crate::utils::weight::Weight;
 
+extern crate dotenv;
+
+#[tokio::main]
 #[cfg(not(tarpaulin_include))]
-fn main() {
+async fn main() {
     divider("Length");
     length_run();
 
@@ -16,6 +21,12 @@ fn main() {
 
     divider("Temperature");
     temperature_run();
+
+    let kroner = Currency::new(CurrencyTypes::DKK);
+    println!("{}", kroner);
+
+    let response = kroner.convert(100.).await;
+    println!("The response was: {}", response);
 }
 
 #[cfg(not(tarpaulin_include))]
