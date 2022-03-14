@@ -70,13 +70,13 @@ impl Currency {
         let response = query_api(self.code).await;
 
         // Process response and get the value of the currency
-        let total = handle_result(response).await;
+        let value = handle_result(response).await;
 
-        // Multiply by the desired amount
-        let total_multiplied = total * amount;
+        // Multiply by the desired amount to get total
+        let total = value * amount;
 
         // Return total, rounded to two decimals
-        return round_to_two_decimals(total_multiplied);
+        return round_to_two_decimals(total);
     }
 }
 
@@ -87,7 +87,7 @@ async fn query_api(code: CurrencyTypes) -> Response {
     dotenv().ok();
     // Build request url
     let request_url = format!("https://api.currencyapi.com/v3/latest?apikey={apikey}&base_currency={base_currency}&currencies={currencies}",
-                                        apikey = env::var("APIKEY").unwrap_or("".to_string()),
+                                        apikey = env::var("APIKEY").unwrap_or("api_key_not_loaded".to_string()),
                                         base_currency = code.to_string(),
                                         currencies = CurrencyTypes::EUR);
 
