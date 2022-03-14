@@ -1,8 +1,9 @@
-use super::units::CurrencyTypes;
+use super::{functions::round_to_two_decimals, units::CurrencyTypes};
 use dotenv::dotenv;
 use reqwest::{
     self,
     header::{ACCEPT, CONTENT_TYPE},
+    Response,
 };
 use serde::{Deserialize, Serialize};
 use std::env;
@@ -60,52 +61,84 @@ impl Currency {
     /// let kroner = Currency::new(CurrencyTypes::DKK);
     /// // The response must be awaited
     /// let response = kroner.convert(100.00).await;
-    /// 
+    ///
     /// assert_eq!(13.44, response);
-    /// 
+    ///
     /// ```
     pub async fn convert(self, amount: f64) -> f64 {
-        dotenv().ok();
-        // Build request url
-        let request_url = format!("https://api.currencyapi.com/v3/latest?apikey={apikey}&base_currency={base_currency}&currencies={currencies}",
-                                            apikey = env::var("APIKEY").unwrap_or("".to_string()),
-                                            base_currency = self.code.to_string(),
-                                            currencies = CurrencyTypes::EUR);
-        let client = reqwest::Client::new();
+        // Get response from API
+        let response = query_api(self.code).await;
 
-        // Query the endpoint
-        let response = client
-            .get(request_url)
-            .header(CONTENT_TYPE, "application/json")
-            .header(ACCEPT, "application/json")
-            .send()
-            .await
-            .unwrap();
+        // Process response and get the value of the currency
+        let total = handle_result(response).await;
 
-        // Return the value IF the response status is 200 - OK
-        // Panic if not
-        match response.status() {
-            reqwest::StatusCode::OK => {
-                // on success, parse our JSON to an APIResponse
-                match response.json::<APIResponse>().await {
-                    Ok(parsed) => {
-                        return parsed.data.EUR.value * amount;
-                    }
-                    Err(e) => {
-                        panic!("Hm, the response didn't match the shape we expected. {}", e);
-                    }
-                };
-            }
-            reqwest::StatusCode::UNAUTHORIZED => {
-                {
-                    panic!("Need to grab a new token");
-                };
-            }
-            other => {
-                panic!("Uh oh! Something unexpected happened: {:?}", other);
-            }
-        };
+        // Multiply by the desired amount
+        let total_multiplied = total * amount;
+
+        // Return total, rounded to two decimals
+        return round_to_two_decimals(total_multiplied);
     }
+}
+
+/// Function to query `app.currencyapi.com` and get the exchange rate of `CurrencyType`.
+///
+/// Returns a `Response` object
+async fn query_api(code: CurrencyTypes) -> Response {
+    dotenv().ok();
+    // Build request url
+    let request_url = format!("https://api.currencyapi.com/v3/latest?apikey={apikey}&base_currency={base_currency}&currencies={currencies}",
+                                        apikey = env::var("APIKEY").unwrap_or("".to_string()),
+                                        base_currency = code.to_string(),
+                                        currencies = CurrencyTypes::EUR);
+
+    // Client to make the request
+    let client = reqwest::Client::new();
+
+    // Query the endpoint
+    let response_res = client
+        .get(request_url)
+        .header(CONTENT_TYPE, "application/json")
+        .header(ACCEPT, "application/json")
+        .send()
+        .await;
+
+    // Unwrap the response
+    // Panic if the response contains an error
+    let response = match response_res {
+        Ok(res) => res,
+        Err(e) => panic!("Query failed: {}", e),
+    };
+
+    return response;
+}
+
+// Function designed to unwrap and parse a Response object
+async fn handle_result(response: Response) -> f64 {
+    let result = match response.status() {
+        // Compare status codes, check for 200
+        reqwest::StatusCode::OK => {
+            // on success, parse our JSON to the APIResponse struct
+            let total = match response.json::<APIResponse>().await {
+                Ok(parsed) => {
+                    // Returns the value of currency
+                    parsed.data.EUR.value
+                }
+                Err(e) => {
+                    panic!("Unable to parse Json to APIResponse. {}", e);
+                }
+            };
+            total
+        }
+        reqwest::StatusCode::UNAUTHORIZED => {
+            {
+                panic!("Need a new token");
+            };
+        }
+        other => {
+            panic!("Something unexpected happened: {:?}", other);
+        }
+    };
+    return result;
 }
 
 #[cfg(not(tarpaulin_include))]

@@ -22,11 +22,8 @@ async fn main() {
     divider("Temperature");
     temperature_run();
 
-    let kroner = Currency::new(CurrencyTypes::DKK);
-    println!("{}", kroner);
-
-    let response = kroner.convert(100.).await;
-    println!("The response was: {}", response);
+    divider("Currency Exchange");
+    currency_run().await;
 }
 
 #[cfg(not(tarpaulin_include))]
@@ -75,6 +72,18 @@ fn temperature_run() {
         "Converted to Fahrenheit: {}",
         kelvin_temp.convert(Fahrenheit)
     );
+}
+
+#[cfg(not(tarpaulin_include))]
+async fn currency_run() {
+    let kroner = Currency::new(CurrencyTypes::DKK);
+    let dollars = Currency::new(CurrencyTypes::USD);
+
+    let dkk_eur = kroner.convert(100.).await;
+    let usd_eur = dollars.convert(20.).await;
+
+    println!("100 DKK to EUR is: {}", dkk_eur);
+    println!("20 USD to EUR is: {}", usd_eur);
 }
 
 #[cfg(not(tarpaulin_include))]
