@@ -87,6 +87,28 @@ impl std::fmt::Display for Temperature {
 mod tests {
     use super::*;
 
+    use rstest::rstest;
+
+    #[rstest]
+    #[case(25.0, 77.0)]
+    #[case(0.0, 32.0)]
+    #[case(-109.0, -164.2)]
+    #[case(-10.1, 13.82)]
+    #[case(101.0, 213.8)]
+    #[case(900.12, 1652.22)]
+    fn convert_celsius_to_fahrenheit_list(#[case] input: f64, #[case] expected: f64 ) {
+        // Arrange
+        // let gradient = 25.0;
+        // let expected = 77.0;
+
+        // Act
+        let temperature = Temperature::new(input, Celsius);
+        let result = temperature.convert(Fahrenheit);
+
+        // Assert
+        assert_eq!(result, expected);
+    }
+
     #[test]
     fn convert_celsius_to_fahrenheit() {
         // Arrange

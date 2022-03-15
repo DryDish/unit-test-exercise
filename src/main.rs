@@ -22,8 +22,8 @@ async fn main() {
     divider("Temperature");
     temperature_run();
 
-    divider("Currency Exchange");
-    currency_run().await;
+    // divider("Currency Exchange");
+    // currency_run().await;
 }
 
 #[cfg(not(tarpaulin_include))]
